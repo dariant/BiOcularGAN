@@ -39,7 +39,7 @@ from PIL import Image
 from models.stylegan1 import G_mapping,Truncation,G_synthesis
 import copy
 from numpy.random import choice
-from training_SG2_NIR.utils import latent_to_image, Interpolate
+from training_scripts_DB_SG2.utils import latent_to_image, Interpolate
 import argparse
 device = 'cuda:1' if torch.cuda.is_available() else 'cpu'
 
@@ -47,7 +47,7 @@ from torch_utils import misc
 import dnnlib
 from training import legacy
 
-from training_SG2_NIR.network_preparation import prepare_SG2
+from training_scripts_DB_SG2.network_preparation import prepare_SG2
 
 from tqdm import tqdm 
 
@@ -178,10 +178,10 @@ def prepare_stylegan(args):
 ######################################################################################
 def generate_data(args, num_sample, sv_path):
     # use face_palette because it has most classes
-    from utils.data_util import face_palette as palette
+    # from torch_utils.data_util import face_palette as palette
 
 
-
+    
     if os.path.exists(sv_path):
         pass
     else:

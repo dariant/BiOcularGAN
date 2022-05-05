@@ -148,7 +148,7 @@ def calc_metrics(ctx, network_pkl, metrics, data, mirror, gpus, verbose):
 
     # Initialize dataset options.
     if data is not None:
-        args.dataset_kwargs = dnnlib.EasyDict(class_name='training.dataset.ImageFolderDataset', path=data)
+        args.dataset_kwargs = dnnlib.EasyDict(class_name='training_scripts_DB_SG2.dataset.ImageFolderDataset', path=data)
     elif network_dict['training_set_kwargs'] is not None:
         args.dataset_kwargs = dnnlib.EasyDict(network_dict['training_set_kwargs'])
     else:

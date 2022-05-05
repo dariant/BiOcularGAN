@@ -47,7 +47,7 @@ import copy
 from numpy.random import choice
 from torch.distributions import Categorical
 import scipy.stats
-from utils.utils import multi_acc, colorize_mask, get_label_stas, oht_to_scalar, Interpolate #latent_to_image
+from torch_utils.utils import multi_acc, colorize_mask, get_label_stas, oht_to_scalar, Interpolate #latent_to_image
 import torch.optim as optim
 import argparse
 import glob
@@ -65,8 +65,8 @@ from PIL import Image
 import imageio
 from tqdm import tqdm 
 
-from training_SG2_NIR.network_preparation import prepare_SG2
-from training_SG2_NIR.utils import latent_to_image, Interpolate
+from training_scripts_DB_SG2.network_preparation import prepare_SG2
+from training_scripts_DB_SG2.utils import latent_to_image, Interpolate
 
 import time
 
@@ -147,6 +147,7 @@ class pixel_classifier(nn.Module):
 def prepare_stylegan(args):
 
     ######################################################################################################
+    # Disabled, we only use stylegan2 
     if args['stylegan_ver'] == "1" and False:
         if args['category'] == "car":
             resolution = 512
@@ -283,15 +284,15 @@ def prepare_stylegan(args):
 
 def generate_data(args, checkpoint_path, num_sample, start_step=0, vis=True, ignore_latent_layers=None):
     if args['category'] == 'car':
-        from utils.data_util import car_20_palette as palette
+        from torch_utils.data_util import car_20_palette as palette
     elif args['category'] == 'face':
-        from utils.data_util import face_palette as palette
+        from torch_utils.data_util import face_palette as palette
     elif args['category'] == 'bedroom':
-        from utils.data_util import bedroom_palette as palette
+        from torch_utils.data_util import bedroom_palette as palette
     elif args['category'] == 'cat':
-        from utils.data_util import cat_palette as palette
+        from torch_utils.data_util import cat_palette as palette
     elif "eyes" in args['category']:
-        from utils.data_util import cat_palette as palette
+        from torch_utils.data_util import cat_palette as palette
 
     else:
         assert False
@@ -639,15 +640,15 @@ def prepare_data(args, palette, ignore_latent_layers=None):
 def main(args, ignore_latent_layers=None):
 
     if args['category'] == 'car':
-        from utils.data_util import car_20_palette as palette
+        from torch_utils.data_util import car_20_palette as palette
     elif args['category'] == 'face':
-        from utils.data_util import face_palette as palette
+        from torch_utils.data_util import face_palette as palette
     elif args['category'] == 'bedroom':
-        from utils.data_util import bedroom_palette as palette
+        from torch_utils.data_util import bedroom_palette as palette
     elif args['category'] == 'cat':
-        from utils.data_util import cat_palette as palette
+        from torch_utils.data_util import cat_palette as palette
     elif "eyes" in args['category']:
-        from utils.data_util import cat_palette as palette
+        from torch_utils.data_util import cat_palette as palette
 
     
 

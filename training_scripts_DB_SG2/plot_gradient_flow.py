@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.lines as lines
 def plot_grad_flow(named_parameters):
-    '''Plots the gradients flowing through different layers in the net during training.
+    '''Plots the gradients flowing through different layers in the net during training_scripts_DB_SG2.
     Can be used for checking for possible gradient vanishing / exploding problems.
     
     Usage: Plug this function in Trainer class after loss.backwards() as 

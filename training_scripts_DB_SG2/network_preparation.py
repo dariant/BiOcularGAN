@@ -18,9 +18,9 @@ def prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, dev
     spec.gamma = 0.0002 * (res ** 2) / spec.mb # heuristic formula
     spec.ema = spec.mb * 10 / 32
 
-    G_kwargs = dnnlib.EasyDict(class_name='training_SG2_NIR.networks.Generator', z_dim=512, w_dim=512, mapping_kwargs=dnnlib.EasyDict(), synthesis_kwargs=dnnlib.EasyDict())
+    G_kwargs = dnnlib.EasyDict(class_name='training_scripts_DB_SG2.networks.Generator', z_dim=512, w_dim=512, mapping_kwargs=dnnlib.EasyDict(), synthesis_kwargs=dnnlib.EasyDict())
 
-    D_kwargs = dnnlib.EasyDict(class_name='training_SG2_NIR.networks.Discriminator', block_kwargs=dnnlib.EasyDict(), mapping_kwargs=dnnlib.EasyDict(), epilogue_kwargs=dnnlib.EasyDict())
+    D_kwargs = dnnlib.EasyDict(class_name='training_scripts_DB_SG2.networks.Discriminator', block_kwargs=dnnlib.EasyDict(), mapping_kwargs=dnnlib.EasyDict(), epilogue_kwargs=dnnlib.EasyDict())
     G_kwargs.synthesis_kwargs.channel_base = D_kwargs.channel_base = int(spec.fmaps * 32768)
     G_kwargs.synthesis_kwargs.channel_max = D_kwargs.channel_max = 512
     G_kwargs.mapping_kwargs.num_layers = spec.map
@@ -30,7 +30,7 @@ def prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, dev
 
     G_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)
     #args.D_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)
-    loss_kwargs = dnnlib.EasyDict(class_name='training_SG2_NIR.loss.StyleGAN2Loss', r1_gamma=spec.gamma)
+    loss_kwargs = dnnlib.EasyDict(class_name='training_scripts_DB_SG2.loss.StyleGAN2Loss', r1_gamma=spec.gamma)
 
     training_set_label_dim = 0
     training_set_resolution = resolution

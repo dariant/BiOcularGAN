@@ -23,8 +23,8 @@ from torch_utils import training_stats
 from torch_utils.ops import conv2d_gradfix
 from torch_utils.ops import grid_sample_gradfix
 
-from training.dataset import ImageFolderDataset
-from training.networks import Discriminator
+from training_scripts_DB_SG2.dataset import ImageFolderDataset
+from training_scripts_DB_SG2.networks import Discriminator
 
 import legacy
 from metrics import metric_main
@@ -100,9 +100,9 @@ def training_loop(
     D_opt_kwargs            = {},       # Options for discriminator optimizer.
     augment_kwargs          = None,     # Options for augmentation pipeline. None = disable.
     loss_kwargs             = {},       # Options for loss function.
-    metrics                 = [],       # Metrics to evaluate during training.
+    metrics                 = [],       # Metrics to evaluate during training_scripts_DB_SG2.
     random_seed             = 0,        # Global random seed.
-    num_gpus                = 1,        # Number of GPUs participating in the training.
+    num_gpus                = 1,        # Number of GPUs participating in the training_scripts_DB_SG2.
     rank                    = 0,        # Rank of the current process in [0, num_gpus[.
     batch_size              = 4,        # Total batch size for one training iteration. Can be larger than batch_gpu * num_gpus.
     batch_gpu               = 4,        # Number of samples processed at a time by one GPU.
@@ -121,13 +121,13 @@ def training_loop(
     resume_pkl              = None,     # Network pickle to resume training from.
     cudnn_benchmark         = True,     # Enable torch.backends.cudnn.benchmark?
     allow_tf32              = False,    # Enable torch.backends.cuda.matmul.allow_tf32 and torch.backends.cudnn.allow_tf32?
-    abort_fn                = None,     # Callback function for determining whether to abort training. Must return consistent results across ranks.
+    abort_fn                = None,     # Callback function for determining whether to abort training_scripts_DB_SG2. Must return consistent results across ranks.
     progress_fn             = None,     # Callback function for updating training progress. Called for all ranks.
     TRAIN_IMG_OR_NIR_OR_MASK = "NIR",
 ):
     # Initialize.
     start_time = time.time()
-    device = torch.device('cuda', rank)
+    device = torch.device('cuda', 1)
     np.random.seed(random_seed * num_gpus + rank)
     torch.manual_seed(random_seed * num_gpus + rank)
     torch.backends.cudnn.benchmark = cudnn_benchmark    # Improves training speed.
@@ -145,7 +145,7 @@ def training_loop(
     tmp_training_set_kwargs.pop("class_name", None)
 
     training_set = ImageFolderDataset(**tmp_training_set_kwargs)
-    #training_set = dnnlib.util.construct_class_by_name(**training_set_kwargs) # subclass of training.dataset.Dataset
+    #training_set = dnnlib.util.construct_class_by_name(**training_set_kwargs) # subclass of training_scripts_DB_SG2.dataset.Dataset
     training_set_sampler = misc.InfiniteSampler(dataset=training_set, rank=rank, num_replicas=num_gpus, seed=random_seed)
     training_set_iterator = iter(torch.utils.data.DataLoader(dataset=training_set, sampler=training_set_sampler, batch_size=batch_size//num_gpus, **data_loader_kwargs))
     if rank == 0:
@@ -276,7 +276,7 @@ def training_loop(
     
     loss_kwargs['TRAIN_IMAGE_OR_NIR_OR_MASK'] = "NIR"#TRAIN_IMG_OR_MASK
 
-    loss = dnnlib.util.construct_class_by_name(device=device, **ddp_modules, **loss_kwargs) # subclass of training.loss.Loss
+    loss = dnnlib.util.construct_class_by_name(device=device, **ddp_modules, **loss_kwargs) # subclass of training_scripts_DB_SG2.loss.Loss
     phases = []
     for name, module, opt_kwargs, reg_interval in [('G', G, G_opt_kwargs, G_reg_interval), ('D', D, D_opt_kwargs, D_reg_interval), ('D_NIR', D_NIR, D_opt_kwargs, D_reg_interval)]:
         if reg_interval is None:
