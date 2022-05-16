@@ -4,6 +4,7 @@ Based on implementation ...
 
 ![Teaser image](./docs/stylegan2-ada-teaser-1024x252.png)
 
+## TODO preprocess procedure ... for which you can use GIMP and the preprocess_latents_and_files.ipynb
 
 ## StyleGAN2-ADA &mdash; Official PyTorch implementation
 

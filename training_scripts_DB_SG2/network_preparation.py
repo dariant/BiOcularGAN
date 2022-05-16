@@ -3,10 +3,10 @@ import dnnlib
 from models.stylegan1 import Truncation
 import torch
 from collections import OrderedDict
-from training import legacy
+from training_scripts_DB_SG2 import legacy
 from torch_utils import misc
 
-def prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, device):
+def prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, device, save_intermediate_results=False):
     
     spec = dnnlib.EasyDict(dict(ref_gpus= gpus, kimg=25000,  mb=-1, mbstd=-1, fmaps=-1,  lrate=-1,     gamma=-1,   ema=-1,  ramp=0.05, map=8))
     print(spec)
@@ -19,13 +19,16 @@ def prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, dev
     spec.ema = spec.mb * 10 / 32
 
     G_kwargs = dnnlib.EasyDict(class_name='training_scripts_DB_SG2.networks.Generator', z_dim=512, w_dim=512, mapping_kwargs=dnnlib.EasyDict(), synthesis_kwargs=dnnlib.EasyDict())
-
+    G_kwargs.synthesis_kwargs.save_intermediate_results = save_intermediate_results # save results for DatasetGAN
+    
     D_kwargs = dnnlib.EasyDict(class_name='training_scripts_DB_SG2.networks.Discriminator', block_kwargs=dnnlib.EasyDict(), mapping_kwargs=dnnlib.EasyDict(), epilogue_kwargs=dnnlib.EasyDict())
     G_kwargs.synthesis_kwargs.channel_base = D_kwargs.channel_base = int(spec.fmaps * 32768)
     G_kwargs.synthesis_kwargs.channel_max = D_kwargs.channel_max = 512
     G_kwargs.mapping_kwargs.num_layers = spec.map
     G_kwargs.synthesis_kwargs.num_fp16_res = D_kwargs.num_fp16_res = 4 # enable mixed-precision training
     G_kwargs.synthesis_kwargs.conv_clamp = D_kwargs.conv_clamp = 256 # clamp activations to avoid float16 overflow
+    
+    
     D_kwargs.epilogue_kwargs.mbstd_group_size = spec.mbstd
 
     G_opt_kwargs = dnnlib.EasyDict(class_name='torch.optim.Adam', lr=spec.lrate, betas=[0,0.99], eps=1e-8)

@@ -534,6 +534,7 @@ class SynthesisNetwork(torch.nn.Module):
         channel_base    = 32768,    # Overall multiplier for the number of channels.
         channel_max     = 512,      # Maximum number of channels in any layer.
         num_fp16_res    = 0,        # Use FP16 for the N highest resolutions.
+        save_intermediate_results = False, # Save results for use in Style Interpreter
         **block_kwargs,             # Arguments for SynthesisBlock.
     ):
         assert img_resolution >= 4 and img_resolution & (img_resolution - 1) == 0
@@ -546,8 +547,9 @@ class SynthesisNetwork(torch.nn.Module):
         channels_dict = {res: min(channel_base // res, channel_max) for res in self.block_resolutions}
         fp16_resolution = max(2 ** (self.img_resolution_log2 + 1 - num_fp16_res), 8)
 
-        self.num_ws = 0
-        
+        self.num_ws = 0 
+        self.save_intermediate_results = save_intermediate_results
+
         #self.block_resolutions = [4, 8, 16, 32, 64, 128] # TODO 
         #channels_dict = {4: 256, 8: 256, 16: 256, 32: 256, 64: 128, 128: 64} # {4: 512, 8: 512, 16: 512, 32: 512, 64: 256, 128: 128} # TODO 
 
@@ -594,10 +596,10 @@ class SynthesisNetwork(torch.nn.Module):
             block = getattr(self, f'b{res}')
             x, x0, img, NIR_img = block(x, img, NIR_img, cur_ws, **block_kwargs)
             #x_tmp = x.cpu().detach().numpy()
-            #x_tmp_0 = x0.cpu().detach().numpy()
-            #img_tmp = img.cpu().detach().numpy()
-            result_list.append(x)
-            result_list.append(x0)
+
+            if self.save_intermediate_results:
+                result_list.append(x)
+                result_list.append(x0)
 
         #print("Img:", img.shape, "Mask:", mask.shape)
         return img, NIR_img, result_list

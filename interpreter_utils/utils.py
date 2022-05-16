@@ -69,12 +69,13 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
         #print(g_all)
         #print("-- Latents shape:", latents.shape)
         #print(g_all.module.g_mapping)
+
         style_latents = g_all.module.g_mapping(latents)
         #print("-- Style latents shape:", style_latents.shape) # should be Style latents shape: torch.Size([1, 18, 512]) but is 1, 14, 512
 
         style_latents = g_all.module.truncation(style_latents)
         #print("--", style_latents.shape)
-        
+    
         #style_latents = g_all.module.truncation(g_all.module.g_mapping(latents))
         style_latents = style_latents.clone()  # make different layers non-alias
 
@@ -91,9 +92,10 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
 
     #print("Style Latents:", style_latents.shape)
     if print_log: print("Use synthesis")
-    img_list, affine_layers = g_all.module.g_synthesis(style_latents)
-
-    #print(img_list.shape)
+    img_list, NIR_list, affine_layers = g_all.module.g_synthesis(style_latents)
+    #print("IMG shape:", img_list.shape)
+    #print("NIR shape:", NIR_list.shape)
+    #print(affine_layers)
     #print("///  Len of affine layers:", len(affine_layers)) # concatenated feature maps
     
     #### UNUSED
@@ -101,11 +103,15 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
         if process_out:
             if img_list.shape[-2] > 512:
                 img_list = upsamplers[-1](img_list)
-
+                NIR_list = upsamplers[-1](NIR_list)
             img_list = img_list.cpu().detach().numpy()
             img_list = process_image(img_list)
             img_list = np.transpose(img_list, (0, 2, 3, 1)).astype(np.uint8)
-        return img_list, style_latents
+
+            NIR_list = NIR_list.cpu().detach().numpy()
+            NIR_list = process_image(NIR_list)
+            NIR_list = np.transpose(NIR_list, (0, 2, 3, 1)).astype(np.uint8)
+        return img_list, NIR_list, style_latents
     ##### 
 
 
@@ -150,6 +156,8 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
 
     if img_list.shape[-2] != 512:
         img_list = upsamplers[-1](img_list)
+        NIR_list = upsamplers[-1](NIR_list)
+
     
     if process_out:
         img_list = img_list.cpu().detach().numpy()
@@ -157,8 +165,11 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
         img_list = np.transpose(img_list, (0, 2, 3, 1)).astype(np.uint8)
         # print('start_channel_index',start_channel_index)
 
+        NIR_list = NIR_list.cpu().detach().numpy()
+        NIR_list = process_image(NIR_list)
+        NIR_list = np.transpose(NIR_list, (0, 2, 3, 1)).astype(np.uint8)
 
-    return img_list, affine_layers_upsamples
+    return img_list, NIR_list, affine_layers_upsamples
 
 
 def process_image(images):

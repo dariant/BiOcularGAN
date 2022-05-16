@@ -56,7 +56,7 @@ device = 'cuda:' + str(device_ids[0]) if torch.cuda.is_available() else 'cpu'
 print("Device:", device)
 import dnnlib
 from torch_utils import misc
-from training import legacy
+from training_scripts_DB_SG2 import legacy
 from torchvision.models.segmentation.deeplabv3 import DeepLabHead
 
 
@@ -66,7 +66,7 @@ import imageio
 from tqdm import tqdm 
 
 from training_scripts_DB_SG2.network_preparation import prepare_SG2
-from training_scripts_DB_SG2.utils import latent_to_image, Interpolate
+from interpreter_utils.utils import latent_to_image, Interpolate
 
 import time
 
@@ -147,7 +147,7 @@ class pixel_classifier(nn.Module):
 def prepare_stylegan(args):
 
     ######################################################################################################
-    # Disabled, we only use stylegan2 
+    # Code Disabled, we use stylegan2 
     if args['stylegan_ver'] == "1" and False:
         if args['category'] == "car":
             resolution = 512
@@ -218,28 +218,26 @@ def prepare_stylegan(args):
         avg_latent =  np.load(args['exp_dir'] + "/" + args['average_latent'])
         print("---- Latent to torch")
         avg_latent = torch.from_numpy(avg_latent).type(torch.FloatTensor).to(device)
-
-        print(avg_latent.shape)
         #avg_latent = torch.ones((14, 512)).type(torch.FloatTensor).to(device)
+        
+        print("AVG latent", avg_latent.shape)
+        
         print("----  Build Generator")
 
-        #exit()
         gpus = 1
 
         path_to_pretrained = args['stylegan_checkpoint']
         print(f'Resuming from "{path_to_pretrained}"')
-
-        ##########################################
-        g_all, _, _ = prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, device)
         
-
-        print("======")
-        #print(G.c_dim)
-        print("AVG latent", avg_latent.shape)
+        print("Prepare StytleGAN2")
+        ##########################################
+        g_all, _, _ = prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, device, save_intermediate_results=True)
+        
+        print("======") 
 
         g_all.eval()
 
-        print("---- Do parallel")
+        print("---- Parallel")
         g_all = nn.DataParallel(g_all, device_ids=device_ids).to(device)#.cuda()
 
 

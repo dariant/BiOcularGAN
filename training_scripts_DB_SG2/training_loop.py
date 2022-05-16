@@ -26,7 +26,7 @@ from torch_utils.ops import grid_sample_gradfix
 from training_scripts_DB_SG2.dataset import ImageFolderDataset
 from training_scripts_DB_SG2.networks import Discriminator
 
-import legacy
+from training_scripts_DB_SG2 import legacy
 from metrics import metric_main
 
 #----------------------------------------------------------------------------
@@ -127,7 +127,7 @@ def training_loop(
 ):
     # Initialize.
     start_time = time.time()
-    device = torch.device('cuda', 1)
+    device = torch.device('cuda', 0)
     np.random.seed(random_seed * num_gpus + rank)
     torch.manual_seed(random_seed * num_gpus + rank)
     torch.backends.cudnn.benchmark = cudnn_benchmark    # Improves training speed.

@@ -39,14 +39,13 @@ from PIL import Image
 from models.stylegan1 import G_mapping,Truncation,G_synthesis
 import copy
 from numpy.random import choice
-from training_scripts_DB_SG2.utils import latent_to_image, Interpolate
+from interpreter_utils.utils import latent_to_image, Interpolate
 import argparse
 device = 'cuda:1' if torch.cuda.is_available() else 'cpu'
 
 from torch_utils import misc
 import dnnlib
-from training import legacy
-
+from training_scripts_DB_SG2 import legacy
 from training_scripts_DB_SG2.network_preparation import prepare_SG2
 
 from tqdm import tqdm 
