@@ -10,6 +10,10 @@ https://arxiv.org/abs/2205.01536<br>
 
 Abstract : *Current state-of-the-art segmentation techniques for ocular images are critically dependent on large-scale annotated datasets, which are labor-intensive to gather and often raise privacy concerns. In this paper, we present a novel framework, called BiOcularGAN, capable of generating synthetic large-scale datasets of photorealistic (visible light and near infrared) ocular images, together with corresponding segmentation labels to address these issues. At its core, the framework relies on a novel Dual-Branch StyleGAN2 (DB-StyleGAN2) model that facilitates bimodal image generation, and a Semantic Mask Generator (SMG) that produces semantic annotations by exploiting DB-StyleGAN2's feature space. We evaluate BiOcularGAN through extensive experiments across five diverse ocular datasets and analyze the effects of bimodal data generation on image quality and the produced annotations. Our experimental results show that BiOcularGAN is able to produce high-quality matching bimodal images and annotations (with minimal manual intervention) that can be used to train highly competitive (deep) segmentation models that perform well across multiple real-world datasets.*
 
+## Release Notes: 
+
+The BiOcularGAN PyTorch framework allows for generation of bimodal data along with corresponding annotations. The framework is made up of a Dual-Branch StyleGAN2 and a Style Interpreter, based on the [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch) and the [DatasetGAN](https://github.com/nv-tlabs/datasetGAN_release) implementation respectfully. The framwork follows the [Nvidia Source Code License](https://nvlabs.github.io/stylegan2-ada-pytorch/license.html).
+
 
 ## TODO preprocess procedure ... for which you can use GIMP and the preprocess_latents_and_files.ipynb
 
