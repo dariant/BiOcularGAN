@@ -67,19 +67,9 @@ docker_run.sh python train_interpreter_DB_SG2.py --generate_data True --num_samp
 
 
 ## Notes:
-Pre-trained networks are stored as `*.pkl` files. These contain the Generator `'G'` and Discriminator `'D'`, as well as `'G_ema'`, represents a moving average of the generator weights over several training steps. The generator consists of two submodules, `G.mapping` and `G.synthesis`, that can be executed separately. They also support various additional options, such as truncation. For further examples, check [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch).
-
-
-## Preparing datasets:
-
-TODO 
-Datasets are stored as uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels.
-
-
-In this example, the results are saved to a newly created directory `~/training-runs/<ID>-mydataset-auto1`, controlled by `--outdir`. The training exports network pickles (`network-snapshot-<INT>.pkl`) and example images (`fakes<INT>.png`) at regular intervals (controlled by `--snap`). For each pickle, it also evaluates FID (controlled by `--metrics`) and logs the resulting scores in `metric-fid50k_full.jsonl` (as well as TFEvents if TensorBoard is installed).
-
-The name of the output directory reflects the training configuration. For example, `00000-mydataset-auto1` indicates that the *base configuration* was `auto1`, meaning that the hyperparameters were selected automatically for training on one GPU. The base configuration is controlled by `--cfg`:
-
+* Pre-trained networks are stored as `*.pkl` files. These contain the Generator `'G'` and Discriminator `'D'`, as well as `'G_ema'`, represents a moving average of the generator weights over several training steps. The generator consists of two submodules, `G.mapping` and `G.synthesis`, that can be executed separately. They also support various additional options, such as truncation. For further examples, check [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch).
+* To use BiOcularGAN without Docker, simply remove `docker_run.sh` from the above commands. 
+* An example experiment is available under `IJCB_EXPERIMENTS/interpreter/CrossEyed_NIR_RGB/`
 
 ## License
 
