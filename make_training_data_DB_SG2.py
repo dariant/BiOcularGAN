@@ -193,7 +193,7 @@ def generate_data(args, num_sample, sv_path):
     g_all, avg_latent, upsamplers = prepare_stylegan(args)
     print(" ..... Done")
     # dump avg_latent for reproducibility
-    mean_latent_sv_path = os.path.join(sv_path, "avg_latent_stylegan1.npy")
+    mean_latent_sv_path = os.path.join(sv_path, "avg_latent_stylegan.npy")
     np.save(mean_latent_sv_path, avg_latent[0].detach().cpu().numpy())
 
 
@@ -242,7 +242,7 @@ def generate_data(args, num_sample, sv_path):
             
 
         latent_cache = np.concatenate(latent_cache, 0)
-        latent_sv_path = os.path.join(sv_path, "latent_stylegan1.npy")
+        latent_sv_path = os.path.join(sv_path, "latent_stylegan.npy")
         np.save(latent_sv_path, latent_cache)
 
 

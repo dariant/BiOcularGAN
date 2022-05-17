@@ -236,7 +236,7 @@ def prepare_stylegan(args):
         print("======") 
 
         g_all.eval()
-
+        
         print("---- Parallel")
         g_all = nn.DataParallel(g_all, device_ids=device_ids).to(device)#.cuda()
 
