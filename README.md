@@ -19,7 +19,7 @@ This repository follows the [Nvidia Source Code License](https://nvlabs.github.i
 
 * Linux and Windows are supported, but we recommend Linux for performance and compatibility reasons.
 * 1&ndash;8 high-end NVIDIA GPUs with at least 12 GB of memory. We have tested our implementation on a NVIDIA RTX 3060 GPU and a NVIDIA RTX 3090 GPU. Parallelization across multiple GPUs are also supported for training the DB-StyleGAN2 network.
-* We highly recommend using Docker, if possible, to setup the environment. Please use the [provided Dockerfile](./Dockerfile) to build an image with the required library dependencies. (The Docker image requires NVIDIA driver release `r455.23` or later.)
+* We highly recommend using Docker to setup the environment. Please use the [provided Dockerfile](./Dockerfile) to build an image with the required library dependencies. (The Docker image requires NVIDIA driver release `r455.23` or later.)
 * Otherwise the requirements remain the same as in  [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch). These being 64-bit Python 3.7, PyTorch 1.7.1, and CUDA toolkit 11.0 or later. Use at least version 11.1 if running on RTX 3090. Check the linked repository if you are having any problems.
 
 
@@ -55,7 +55,7 @@ This generates image pairs in the `images_to_annotate` directory.
 Annotate the desired number of images (8 in our experiments) with the desired number of regions (4 and 10 in our experiments). For this you can use [GIMP](https://www.gimp.org/) or any other software. Save the annotations and original images to the `eyes_GIMP` directory as seen in the example.
 
 ## Step 2.2. Preprocess annotations:
-Preprocess the annotations so that the classes in the range `{0, 1, 2, ... num_classes}` and are saved as `.npy` files. For this, you can also use the `preprocess_annotated_images_and_latents.ipynb` Jupyter Notebook, however, make sure that the values correspond to your annotations.
+Preprocess the annotations so that the classes are in the range `{0, 1, 2, ... num_classes}` and that the annotations are saved as `.npy` files. For this, you can also use the `preprocess_annotated_images_and_latents.ipynb` Jupyter Notebook, however, make sure that the values correspond to your annotations.
 
 ## Step 3. Train the Style Interpreter:
 ```.bash
