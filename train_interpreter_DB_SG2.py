@@ -754,8 +754,7 @@ def main(args, ignore_latent_layers=None):
 
 
         gc.collect()
-        # TODO do we need this?
-        #torch.cuda.empty_cache()    # clear cache memory on GPU
+        torch.cuda.empty_cache()    # clear cache memory on GPU
 
 
 if __name__ == '__main__':
