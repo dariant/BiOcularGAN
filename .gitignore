@@ -11,4 +11,5 @@ IJCB_EXPERIMENTS/*
 !IJCB_EXPERIMENTS/interpreter
 !IJCB_EXPERIMENTS/images_to_annotate/*
 
-
+!IJCB_EXPERIMENTS/checkpoints*
+IJCB_EXPERIMENTS/checkpoints/IJCB_2022_checkpoints/CrossEyed_NIR_RGB_002080.pkl
