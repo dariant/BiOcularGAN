@@ -33,7 +33,7 @@ To run the BiOcularGAN framework use the `main_BiOcularGAN.ipynb` Jupyter Notebo
 
 ## Step 1. Train the Dual-Branch StyleGAN2 network: 
 ```.bash
-./docker_run.sh python train_DB_StyleGAN2.py --cfg="auto" --snap=20  --data="DATASETS/CrossEyed_256/train/images" --resume="ffhq256" --gpus=1 --mirror=1 --outdir="IJCB_EXPERIMENTS/DB_SG2/experiments_CrossEyed_NIR_RGB_256_NEW_MAY"
+./docker_run.sh python train_DB_StyleGAN2.py --cfg="auto" --snap=20  --data="DATASETS/CrossEyed_256/train/images" --resume="ffhq256" --gpus=1 --mirror=1 --outdir="IJCB_EXPERIMENTS/DB_SG2/experiments_CrossEyed_NIR_RGB_256"
 ```
 
 Here the `--data` argument should point to a directory of `RGB` images, structured similarly to the example in the `IJCB_EXPERIMENTS` directory. It should have a neighbour directory filled with corresponding `NIR` (grayscale) images.
@@ -41,8 +41,9 @@ Here the `--data` argument should point to a directory of `RGB` images, structur
 For details on other arguments and the configurations check the [StyleGAN2-ADA](https://github.com/NVlabs/stylegan2-ada-pytorch) documentation.
 
 ## Step 1.5 Prepare for Style Interpreter steps:
-Make the required directories ... 
-TODO save under checkpoints
+First save the final trained StyleGAN2 model under `IJCB_EXPERIMENTS/checkpoints/`.
+Then make the required directory in `IJCB_EXPERIMENTS/interpreter/` with the two `.json` configuration files (`generate.json`, `train_datagan.json`). 
+To construct these use the available template in `IJCB_EXPERIMENTS/interpreter/CrossEyed_NIR_RGB/`. For more details check the [DatasetGAN](https://github.com/nv-tlabs/datasetGAN_release) documentation.
 
 ## Step 2. Generate examples of training image pairs: <br>
 ```.bash
