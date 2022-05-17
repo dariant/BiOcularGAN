@@ -55,7 +55,7 @@ This generates image pairs in the `images_to_annotate` directory.
 Annotate the desired number of images (8 in our experiments) with the desired number of regions (4 and 10 in our experiments). For this you can use [GIMP](https://www.gimp.org/) or any other software. Save the annotations and original images to the `eyes_GIMP` directory as seen in the example.
 
 ## Step 2.2. Preprocess annotations:
-Preprocess the annotations so that the classes in the range `{0, 1, 2, ... num_classes}` and are saved as `.npy` files. For this, you can also use the `preprocess_annotated_images_and_latents.ipynb` Jupyter Notebook, however, make sure that the values correspond to your annotations.
+Preprocess the annotations so that the classes are in the range `{0, 1, 2, ... num_classes}` and that the annotations are saved as `.npy` files. For this, you can also use the `preprocess_annotated_images_and_latents.ipynb` Jupyter Notebook, however, make sure that the values correspond to your annotations.
 
 ## Step 3. Train the Style Interpreter:
 ```.bash
