@@ -1,0 +1,22 @@
+{
+  "exp_dir": "IJCB_EXPERIMENTS/interpreter/CrossEyed_NIR_RGB",
+  "batch_size": 64,
+  "category": "eyes_256",
+  "debug": false,
+  "dim": [256, 256, 4992],
+  "deeplab_res": 256,
+  "number_class": 4, 
+  "testing_data_number_class": 4,
+  "max_training": 8,
+  "stylegan_ver": "2",
+  "annotation_data_from_w": false,
+  "annotation_mask_path": "",
+  "testing_path": "",
+  "average_latent": "",
+  "annotation_image_latent_path": "",
+  "stylegan_checkpoint": "IJCB_EXPERIMENTS/checkpoints/IJCB_2022_checkpoints/CrossEyed_NIR_RGB_002080.pkl",
+  "model_num": 1,
+  "upsample_mode":"bilinear",
+  "upsample_threshold": "8",
+  "expand_to_dimensions": 14
+}

@@ -1,5 +1,15 @@
 __pycache__
 DATASETS
-IJCB_EXPERIMENTS
+IJCB_EXPERIMENTS/*
 .cache
 .config
+
+!IJCB_EXPERIMENTS
+
+#!IJCB_EXPERIMENTS/DB_SG2
+
+!IJCB_EXPERIMENTS/interpreter
+!IJCB_EXPERIMENTS/images_to_annotate/*
+
+#IJCB_EXPERIMENTS/checkpoints
+
