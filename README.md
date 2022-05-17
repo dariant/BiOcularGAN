@@ -83,3 +83,17 @@ This work is made available under the [Nvidia Source Code License](https://nvlab
 
 Currently under review in IJCB 2022.
 
+```
+@article{tomasevic2022bioculargan,
+  title={{BiOcularGAN: Bimodal Synthesis and Annotation of Ocular Images}},
+  author={Toma{\v{s}}evi{\'c}, Darian and Peer, Peter and {\v{S}}truc, Vitomir},
+  journal={arXiv preprint arXiv:2205.01536},
+  year={2022},
+  doi= {10.48550/arxiv.2205.01536},
+  publisher = {arXiv},
+}
+
+```
+
+
+
