@@ -485,9 +485,11 @@ class SynthesisBlock(torch.nn.Module):
             x, x0 = self.conv1(x, next(w_iter), fused_modconv=fused_modconv, gain=np.sqrt(0.5), **layer_kwargs)
             x = y.add_(x)
         else:
-            x = self.conv0(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
-            x, x0 = self.conv1(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
-
+            x0 = self.conv0(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
+            #x, x0 = self.conv1(x0, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs) #before for IJCB project
+            # TODO editgan or datasetgan
+            x, _ = self.conv1(x0, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
+            
         # ToRGB.
         if img is not None:
             misc.assert_shape(img, [None, self.img_channels, self.resolution // 2, self.resolution // 2])
@@ -499,7 +501,7 @@ class SynthesisBlock(torch.nn.Module):
             NIR_img = upfirdn2d.upsample2d(NIR_img, self.resample_filter)
 
         if self.is_last or self.architecture == 'skip':
-
+            
             tmp_w = next(w_iter)
             y = self.torgb(x, tmp_w, fused_modconv=fused_modconv)
             y = y.to(dtype=torch.float32, memory_format=torch.contiguous_format)
@@ -513,8 +515,11 @@ class SynthesisBlock(torch.nn.Module):
             else:
                 img = y
                 NIR_img = y_NIR
-        
 
+            # print("save y")
+            # y_tmp = y.cpu().detach().numpy()
+            # np.save("y_datasetgan.npy", y_tmp)
+        
         assert x.dtype == dtype
         assert img is None or img.dtype == torch.float32
         assert NIR_img is None or NIR_img.dtype == torch.float32
@@ -595,12 +600,27 @@ class SynthesisNetwork(torch.nn.Module):
         for res, cur_ws in zip(self.block_resolutions, block_ws):
             block = getattr(self, f'b{res}')
             x, x0, img, NIR_img = block(x, img, NIR_img, cur_ws, **block_kwargs)
+            
+            # save the x and x0 here as numpy 
+            # then later display them in ipynb notebooks 
             #x_tmp = x.cpu().detach().numpy()
+            #x_0_tmp = x0.cpu().detach().numpy()
+            #np.save("TMP_feature_maps/x_editgan_" + str(res) +  ".npy", x_tmp)
+            #np.save("TMP_feature_maps/x_0_editgan_" + str(res) + ".npy", x_0_tmp)
+            # exit()
 
             if self.save_intermediate_results:
+                # TODO depends on datasetgan or editgan 
+                """
                 result_list.append(x)
                 result_list.append(x0)
+                """
+                result_list.append(x0)
+                result_list.append(x)
 
+        # save test img 
+        #np.save("img_test.npy", img.cpu().detach().numpy())
+        #exit()
         #print("Img:", img.shape, "Mask:", mask.shape)
         return img, NIR_img, result_list
 
@@ -636,6 +656,8 @@ class Generator(torch.nn.Module):
 
         img, NIR_img, _ = self.synthesis(ws, **synthesis_kwargs)
         #print(img.shape)
+        #np.save("img_test.npy",img.cpu().detach().numpy())
+        #exit()
         return img, NIR_img
 
 #----------------------------------------------------------------------------

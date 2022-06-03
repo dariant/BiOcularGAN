@@ -97,9 +97,10 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
     #print("NIR shape:", NIR_list.shape)
     #print(affine_layers)
     #print("///  Len of affine layers:", len(affine_layers)) # concatenated feature maps
-    
+    #np.save("from_synthesis.npy", img_list.cpu().detach().numpy())
     #### UNUSED
     if return_only_im:
+        #print("retun_only_im")
         if process_out:
             if img_list.shape[-2] > 512:
                 img_list = upsamplers[-1](img_list)
@@ -169,6 +170,9 @@ def latent_to_image(g_all, upsamplers, latents, return_upsampled_layers=False, u
         NIR_list = process_image(NIR_list)
         NIR_list = np.transpose(NIR_list, (0, 2, 3, 1)).astype(np.uint8)
 
+
+    #np.save("images.npy", img_list)
+    #exit()
     return img_list, NIR_list, affine_layers_upsamples
 
 
