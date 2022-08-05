@@ -487,7 +487,7 @@ class SynthesisBlock(torch.nn.Module):
         else:
             x0 = self.conv0(x, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
             #x, x0 = self.conv1(x0, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs) #before for IJCB project
-            # TODO editgan or datasetgan
+            # TODO editgan or datasetgan way
             x, _ = self.conv1(x0, next(w_iter), fused_modconv=fused_modconv, **layer_kwargs)
             
         # ToRGB.

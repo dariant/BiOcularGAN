@@ -177,7 +177,7 @@ def training_loop(
                     'num_fp16_res': 4,
                     'conv_clamp': 256}
 
-    tmp_kwargs = {'c_dim': 0, 'img_resolution': 256, 'img_channels': 1}
+    tmp_kwargs = {'c_dim': 0, 'img_resolution': training_set.resolution, 'img_channels': 1}
 
     #D_mask = Discriminator(**disc_kwargs, **tmp_kwargs )
     #D_mask = D_mask.train().requires_grad_(False).to(device)

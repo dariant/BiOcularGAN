@@ -55,9 +55,9 @@ def prepare_SG2(resolution, path_to_pretrained, avg_latent, max_layer, gpus, dev
 
     g_all = torch.nn.Sequential(OrderedDict([
         ('g_mapping', G.mapping),
-        ('truncation', Truncation(avg_latent, max_layer=max_layer, device=device, threshold=0.7)),
+        #('truncation', Truncation(avg_latent, max_layer=max_layer, device=device, threshold=0.7)),
         ('g_synthesis', G.synthesis)
     ]))
-
+    
 
     return g_all, G_opt_kwargs, loss_kwargs
