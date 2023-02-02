@@ -90,7 +90,6 @@ If you use code or results from this repository, please cite the following publi
   booktitle={IEEE International Joint Conference on Biometrics (IJCB)},
   pages={1--10},
   year={2022},
-  organization={IEEE}
 }
 ```
 
