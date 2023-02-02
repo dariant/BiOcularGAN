@@ -81,18 +81,17 @@ This work is made available under the [Nvidia Source Code License](https://nvlab
 
 ## Citation
 
-Currently under review in IJCB 2022.
+If you use code or results from this repository, please cite the following publication:
 
 ```
-@article{tomasevic2022bioculargan,
-  title={{BiOcularGAN: Bimodal Synthesis and Annotation of Ocular Images}},
+@inproceedings{tomasevic2022bioculargan,
+  title={BiOcularGAN: Bimodal Synthesis and Annotation of Ocular Images},
   author={Toma{\v{s}}evi{\'c}, Darian and Peer, Peter and {\v{S}}truc, Vitomir},
-  journal={arXiv preprint arXiv:2205.01536},
+  booktitle={IEEE International Joint Conference on Biometrics (IJCB)},
+  pages={1--10},
   year={2022},
-  doi= {10.48550/arxiv.2205.01536},
-  publisher = {arXiv},
+  organization={IEEE}
 }
-
 ```
 
 ## Acknowledgements
