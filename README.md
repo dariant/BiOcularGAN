@@ -28,6 +28,16 @@ How to build Docker environment:
 docker build --tag sg2ada:latest .
 ```
 
+# Dowload links for pretrained models
+
+To generate images found in the paper, you can download pretrained models using the following links: 
+*  [DB-StyleGAN2 (CrossEyed)](https://unilj-my.sharepoint.com/:u:/g/personal/darian_tomasevic_fri1_uni-lj_si/IQDrEsXTX9XtRY2cSIKXt8unARGTFYWy3vBaQVHWjcx7crQ?e=BOJZZB)
+*  [DB-StyleGAN2 (PolyU)](https://unilj-my.sharepoint.com/:u:/g/personal/darian_tomasevic_fri1_uni-lj_si/IQDYfVbv6zMGRJzOEn7uPkhKAU4TtnIAMWSvG_Btn-I6TyA?e=lGrdja)
+*  [StyleGAN2 (CrossEyed - VIS)](https://unilj-my.sharepoint.com/:u:/g/personal/darian_tomasevic_fri1_uni-lj_si/IQD4GCM2Cey1RZ-noZpNmfD0Afv7nF_o17L8c4Z0zw4x-8Y)
+*  [StyleGAN2 (CrossEyed - NIR)](https://unilj-my.sharepoint.com/:u:/g/personal/darian_tomasevic_fri1_uni-lj_si/IQA0M6DammfQSIT5JRIgPUdTAc60Pct1iSRu0jQLzg4sIGM?e=ER21Vf)
+*  [StyleGAN2 (PolyU - VIS)](https://unilj-my.sharepoint.com/:u:/g/personal/darian_tomasevic_fri1_uni-lj_si/IQA0M6DammfQSIT5JRIgPUdTAc60Pct1iSRu0jQLzg4sIGM?e=ER21Vf)
+*  [StyleGAN2 (PolyU - NIR)](https://unilj-my.sharepoint.com/:u:/g/personal/darian_tomasevic_fri1_uni-lj_si/IQCoEL5b3w0oTqthhh5c2S5pAaxcmIQM12RsAEEda9vd6eQ)
+ 
 # How to Run (using Docker): 
 To run the BiOcularGAN framework use the `main_BiOcularGAN.ipynb` Jupyter Notebook, or follow the below steps:
 
